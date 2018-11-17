@@ -2,8 +2,6 @@
 
 (require "utils.rkt")
 
-
-
 ; prime-sum?
 (define (prime-sum? pair)
   (prime? (+ (car pair) (cadr pair))))
