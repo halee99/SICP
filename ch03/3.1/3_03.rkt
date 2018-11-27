@@ -15,7 +15,7 @@
               ((eq? m 'deposit) deposit)
               (else (error "Unknown request -- MAKE-ACCOUNT"
                            m)))
-        (lambda (x) "Incorrect password")))
+        (error "Incorrect password")))
   dispatch)
 
 ; test
