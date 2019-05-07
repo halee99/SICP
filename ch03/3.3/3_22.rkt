@@ -1,5 +1,6 @@
 #lang planet neil/sicp
 
+
 (define (make-queue)
   (let ((front-ptr '())
         (rear-ptr '()))
@@ -32,11 +33,11 @@
 
         (define (dispatch m)
           (cond ((eq? m 'empty-queue?)
-                  (empty-queue?))
+                  empty-queue?)
                 ((eq? m 'insert-queue!)
                   insert-queue!)
                 ((eq? m 'delete-queue!)
-                  (delete-queue!))
+                  delete-queue!)
                 (else
                   (error "command no find -- QUEUE" m))))
   dispatch))
@@ -48,7 +49,7 @@
 ; (mcons 'a '())
 ((q1 'insert-queue!) 'b)
 ; (mcons 'a (mcons 'b '()))
-(q1 'delete-queue!)
+((q1 'delete-queue!))
 ; (mcons 'b '())
-(q1 'delete-queue!)
+((q1 'delete-queue!))
 ; '()
