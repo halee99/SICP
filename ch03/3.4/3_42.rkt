@@ -1,0 +1,25 @@
+(define (make-account balance)
+  (define (withdraw amount)
+    (if (>= balance amount)
+        (begin (set! balance (- balance amount))
+               balance)
+        "Insufficient funds"))
+  (define (deposit amount)
+    (set! balance (+ balance amount))
+    balance)
+  (let ((protected (make-serializer)))
+    (let ((protected-withdraw (protected withdraw))
+	  (protected-deposit (protected deposit)))
+      (define (dispatch m)
+	(cond ((eq? m 'withdraw) protected-withdraw)
+	      ((eq? m 'deposit) protected-deposit)
+	      ((eq? m 'balance) balance)
+	      (else (error "Unknown request -- MAKE-ACCOUNT"
+			   m))))
+      dispatch)))
+
+; 这样修改不安全
+; (protected-withdraw 1)
+; (protected-withdraw 2)
+; (protected-withdraw 3)
+; 这3个并发使用的是同一个 "串行"，当已有进程在运行, 其余两个进程运行就会出错
