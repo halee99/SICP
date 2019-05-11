@@ -9,8 +9,8 @@
                (map (lambda (s) (stream-car s)) argstrams))
         (apply stream-map
                (cons
-               proc
-               (map (lambda (s) (stream-cdr s)) argstrams))))))
+                 proc
+                 (map (lambda (s) (stream-cdr s)) argstrams))))))
 
 
 ; test

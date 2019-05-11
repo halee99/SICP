@@ -68,11 +68,23 @@
       (stream-car s)
       (stream-ref (stream-cdr s) (- n 1))))
 
-(define (stream-map proc s)
-  (if (stream-null? s)
+; (define (stream-map proc s)
+;   (if (stream-null? s)
+;       the-empty-stream
+;       (cons-stream (proc (stream-car s))
+;                    (stream-map proc (stream-cdr s)))))
+
+; 扩展版 stream-map
+(define (stream-map proc . argstrams)
+  (if (null? (car argstrams))
       the-empty-stream
-      (cons-stream (proc (stream-car s))
-                   (stream-map proc (stream-cdr s)))))
+      (cons-stream
+        (apply proc
+               (map (lambda (s) (stream-car s)) argstrams))
+        (apply stream-map
+               (cons
+                 proc
+                 (map (lambda (s) (stream-cdr s)) argstrams))))))
 
 (define (stream-for-each proc s)
   (if (stream-null? s)
