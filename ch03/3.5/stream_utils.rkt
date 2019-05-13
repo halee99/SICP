@@ -1,14 +1,14 @@
 #lang racket
 (require r5rs)
 
-(define (log . w)
-  (define (print . w)
-    (display (car w))
-    (display " ")
-    (apply log (cdr w)))
-  (if (null? w)
-      (newline)
-      (apply print w)))
+; (define (log . w)
+;   (define (print . w)
+;     (display (car w))
+;     (display " ")
+;     (apply log (cdr w)))
+;   (if (null? w)
+;       (newline)
+;       (apply print w)))
 
 ; accumulate
 (define (accumulate op initial sequence)
@@ -113,5 +113,8 @@
                       (stream-filter pred
                                      (stream-cdr stream))))
         (else (stream-filter pred (stream-cdr stream)))))
+
+(define (scale-stream stream factor)
+  (stream-map (lambda (x) (* x factor)) stream))
 
 (provide (all-defined-out))
