@@ -117,4 +117,16 @@
 (define (scale-stream stream factor)
   (stream-map (lambda (x) (* x factor)) stream))
 
+(define (sub-streams s1 s2)
+(stream-map - s1 s2))
+
+(define (add-streams s1 s2)
+  (stream-map + s1 s2))
+
+(define (mul-streams s1 s2)
+  (stream-map * s1 s2))
+
+(define (div-streams s1 s2)
+  (stream-map / s1 s2))
+  
 (provide (all-defined-out))
