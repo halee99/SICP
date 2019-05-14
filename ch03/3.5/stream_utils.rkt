@@ -118,11 +118,7 @@
   (stream-map (lambda (x) (* x factor)) stream))
 
 (define (sub-streams s1 s2)
-<<<<<<< HEAD
   (stream-map - s1 s2))
-=======
-(stream-map - s1 s2))
->>>>>>> 37025ce62b6c8ba28e171484913529018d2f2825
 
 (define (add-streams s1 s2)
   (stream-map + s1 s2))
@@ -132,7 +128,6 @@
 
 (define (div-streams s1 s2)
   (stream-map / s1 s2))
-<<<<<<< HEAD
 
 (define zeros (cons-stream 0 zeros))
 
@@ -141,7 +136,5 @@
 (define integers
   (cons-stream 1 (add-streams ones integers)))
 
-=======
-  
->>>>>>> 37025ce62b6c8ba28e171484913529018d2f2825
+
 (provide (all-defined-out))
