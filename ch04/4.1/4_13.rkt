@@ -1,0 +1,20 @@
+; 删除的变量应该是是环境中第一个框架的约束.
+; 被调用函数不应该删除调用者的变量
+
+(define (make-unbound! var env)
+  (let ((frame (first-frame env)))
+    (define (scan vars vals)
+      (cond ((null? vars)
+             (error "Unbound variable -- NOT FOUND" var))
+            ((eq? var (car vars))
+             (let ((next-var (cadr vars))
+                   (rest-vars (cddr vars))
+                   (next-val (cadr vals))
+                   (rest-vals (cddr vals)))
+              (set-car! vars next-var)
+              (set-cdr! vars rest-vars)
+              (set-car! vals next-val)
+              (set-cdr! vals rest-vals)))
+            (else (scan (cdr vars) (cdr vals)))))
+    (scan (frame-variables frame)
+          (frame-values frame))))
