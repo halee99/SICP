@@ -1,12 +1,14 @@
 (define (let? exp) (tagged-list? exp 'let))
 (define (let-parameters exp) (cadr exp))
-(define (let-body exp) (cddr exp))
+(define (let-body exp) (caddr exp))
+
 (define (param->lambda-parameters param)
   (define (convert param)
     (if (null? param)
         '()
         (cons (caar param) (convert (cdr param)))))
   (convert param))
+  
 (define (param->lambda-exp param)
   (define (convert param)
     (if (null? param)
@@ -18,3 +20,6 @@
   (cons (make-lambda (param->lambda-parameters (let-parameters exp))
                      (let-body exp))
         (param->lambda-exp (let-parameters exp))))
+
+(define (make-let var-exps body)
+  (list 'let var-exps body))

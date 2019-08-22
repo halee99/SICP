@@ -1,0 +1,53 @@
+(define (let? exp) (tagged-list? exp 'let))
+(define (let-var-bindings? exp)
+  (quoted? (cadr exp)))
+(define (let-var exp)
+  (if (let-var-bindings? exp)
+      (cadr exp)
+      '()))
+(define (let-parameters exp)
+  (if (let-var-bindings? exp)
+      (caddr exp)
+      (cadr exp)))
+
+(define (let-body exp)
+  (if (let-var-bindings? exp)
+    (cadddr exp)
+    (caddr exp)))
+
+(define (param->lambda-parameters param)
+  (define (convert param)
+    (if (null? param)
+        '()
+        (cons (caar param) (convert (cdr param)))))
+  (convert param))
+
+(define (param->lambda-exp param)
+  (define (convert param)
+    (if (null? param)
+        '()
+        (cons (cdar param) (convert (cdr param)))))
+  (convert param))
+
+(define (let->combination-original exp)
+  (cons (make-lambda (param->lambda-parameters (let-parameters exp))
+                     (let-body exp))
+        (param->lambda-exp (let-parameters exp))))
+
+(define (let->combination-nominate exp)
+  (make-let-original
+    (list (let-var exp)
+          (make-lambda (param->lambda-parameters (let-parameters exp))
+                             (let-body exp)))
+    (cons (let-var exp) (param->lambda-exp (let-parameters exp)))))
+
+(define (let->combination exp)
+  (if (let-var-bindings? exp)
+      (let->combination-nominate exp)
+      (let->combination-original exp)))
+
+(define (make-let-original var-exps body)
+  (list 'let var-exps body))
+
+(define (make-let-new var bindings body)
+  (list 'let var bindings body))
