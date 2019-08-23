@@ -1,7 +1,7 @@
 #lang racket
 (require r5rs)
 
-; (define apply-in-underlying-scheme apply)
+(define apply-in-underlying-scheme apply)
 
 ;;;SECTION 4.1.1
 
@@ -20,12 +20,12 @@
          (eval-sequence (begin-actions exp) env))
         ((cond? exp) (eval (cond->if exp) env))
         ((application? exp)
-         (apply (eval (operator exp) env)
+         (mapply (eval (operator exp) env)
                 (list-of-values (operands exp) env)))
         (else
          (error "Unknown expression type -- EVAL" exp))))
 
-(define (apply procedure arguments)
+(define (mapply procedure arguments)
   (cond ((primitive-procedure? procedure)
          (apply-primitive-procedure procedure arguments))
         ((compound-procedure? procedure)
@@ -59,14 +59,14 @@
 (define (eval-assignment exp env)
   (set-variable-value! (assignment-variable exp)
                        (eval (assignment-value exp) env)
-                       env)
-  'ok)
+                       env))
+  ; 'ok)
 
 (define (eval-definition exp env)
   (define-variable! (definition-variable exp)
                     (eval (definition-value exp) env)
-                    env)
-  'ok)
+                    env))
+  ; 'ok)
 
 ;;;SECTION 4.1.2
 
@@ -294,6 +294,12 @@
         (list 'cdr cdr)
         (list 'cons cons)
         (list 'null? null?)
+        (list 'list list)
+        (list '+ +)
+        (list '- -)
+        (list '* *)
+        (list '/ *)
+        (list 'map map)
 ;;      more primitives
         ))
 
@@ -306,7 +312,7 @@
        primitive-procedures))
 
 ;[moved to start of file] (define apply-in-underlying-scheme apply)
-(define apply-in-underlying-scheme apply)
+; (define apply-in-underlying-scheme apply)
 
 (define (apply-primitive-procedure proc args)
   (apply-in-underlying-scheme
@@ -345,3 +351,5 @@
 ; (driver-loop)
 
 'METACIRCULAR-EVALUATOR-LOADED
+
+(provide (all-defined-out))
