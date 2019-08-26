@@ -48,7 +48,8 @@
 ; definitions-set 返回值是没有 '() 的 list
 (define (definitions-sets definitions)
   (if (null? (cdr definitions))
-      '()
+      (list 'let! (definition-variable (car definitions))
+                  (definition-value (car definitions)))
       (cons (list 'let! (definition-variable (car definitions))
                         (definition-value (car definitions)))
             (definitions-sets (cdr definitions)))))
