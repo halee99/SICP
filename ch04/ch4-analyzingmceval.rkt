@@ -22,7 +22,7 @@
 ;; of eval overrides the definition from 4.1.1
 #lang racket
 ; (require r5rs)
-(require "ch4_mceval.rkt")
+(require "ch4-mceval.rkt")
 ;;;SECTION 4.1.7
 
 (define (eval exp env)
@@ -117,5 +117,5 @@
 
 'ANALYZING-METACIRCULAR-EVALUATOR-LOADED
 
-(provide (all-from-out "ch4_mceval.rkt"))
+(provide (all-from-out "ch4-mceval.rkt"))
 (provide (all-defined-out))
