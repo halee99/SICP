@@ -300,6 +300,9 @@
         (list '* *)
         (list '/ *)
         (list 'map map)
+        (list '= =)
+        (list 'newline newline)
+        (list 'display display)
 ;;      more primitives
         ))
 
@@ -352,4 +355,5 @@
 
 'METACIRCULAR-EVALUATOR-LOADED
 
+(provide (all-from-out r5rs))
 (provide (all-defined-out))
