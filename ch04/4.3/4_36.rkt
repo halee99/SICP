@@ -1,0 +1,10 @@
+(define (<= a b)
+  (or (< a b) (= a b)))
+
+(define (a-pythagorean-triple-starting-from n)
+  (let ((i (an-integer-starting-from n))
+        (j (an-integer-starting-from n))
+        (k (an-integer-starting-from n)))
+        (require (and (<= i j) (<= j k)))
+        (require  (= (+ (* i i) (* j j)) (* k k)))
+        (list i j k)))
