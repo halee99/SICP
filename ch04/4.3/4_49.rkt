@@ -11,3 +11,16 @@
  (let ((found-word (car *unparsed*)))
    (set! *unparsed* (cdr *unparsed*))
    (list-amb (cdr word-list))))
+
+
+
+; the student for the student studies for the student
+; the student for the student studie for the professor
+; the student for the student studie for the cat
+; the student for the student studie for the class
+; the student for the student studie for a student
+; the student for the student studie for a professor
+; the student for the student studie for a cat
+; the student for the student studie for a class
+; the student for the student studie to the student
+; the student for the student studie to the professor
